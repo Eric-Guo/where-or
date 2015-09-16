@@ -1,0 +1,15 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": [".bundle",".idea",".yardoc"],
+			"file_exclude_patterns": [".gitkeep",".tags*",".gemtags","*.sublime-workspace"]
+		}
+	],
+    "settings":
+    {
+      "translate_tabs_to_spaces": true,
+      "tab_size": 2
+    }
+}
