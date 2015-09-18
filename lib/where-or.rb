@@ -74,9 +74,9 @@ ActiveSupport.on_load(:active_record) do
     end
 
     def or!(other) # :nodoc:
-      unless structurally_compatible_for_or?(other)
-        raise ArgumentError, 'Relation passed to #or must be structurally compatible'
-      end
+      #unless structurally_compatible_for_or?(other)
+      #  raise ArgumentError, 'Relation passed to #or must be structurally compatible'
+      #end
 
       self.where_clause = self.where_clause.or(other.where_clause)
       self.having_clause = self.having_clause.or(other.having_clause)
