@@ -2,6 +2,8 @@
 
 [Where or](https://github.com/rails/rails/pull/16052) function backport from Rails 5 for Rails 4.2
 
+Confirm works from Rails 4.2.3 to 4.2.5. [with some issues](https://github.com/Eric-Guo/where-or/issues?utf8=%E2%9C%93&q=is%3Aissue)
+
 [![Gem Version](https://badge.fury.io/rb/where-or.svg)](https://badge.fury.io/for/rb/where-or)
 
 Installation:
