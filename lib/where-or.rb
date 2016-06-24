@@ -86,7 +86,7 @@ ActiveSupport.on_load(:active_record) do
 
     private def structurally_compatible_for_or?(other) # :nodoc:
       (ActiveRecord::Relation::SINGLE_VALUE_METHODS - [:from]).all? { |m| send("#{m}_value") == other.send("#{m}_value") } &&
-        (ActiveRecord::Relation::MULTI_VALUE_METHODS - [:extending, :where, :having, :bind]).all? { |m| send("#{m}_values") == other.send("#{m}_values") }
+        (ActiveRecord::Relation::MULTI_VALUE_METHODS - [:references, :eager_load, :extending, :where, :having, :bind]).all? { |m| send("#{m}_values") == other.send("#{m}_values") }
       # https://github.com/rails/rails/commit/2c46d6db4feaf4284415f2fb6ceceb1bb535f278
       # https://github.com/rails/rails/commit/39f2c3b3ea6fac371e79c284494e3d4cfdc1e929
       # https://github.com/rails/rails/commit/bdc5141652770fd227455681cde1f9899f55b0b9
@@ -269,5 +269,16 @@ ActiveSupport.on_load(:active_record) do
       Arel::Nodes::Grouping.new(node)
     end
 
+  end
+
+  class Arel::Visitors::Visitor
+    def visit_ActiveRecord_Relation_WhereClause o, collector
+      if o.binds
+        visit_Arel_Nodes_And(o.ast, collector)
+      else
+        collector << '1=1' # no-op
+        collector
+      end
+    end
   end
 end
