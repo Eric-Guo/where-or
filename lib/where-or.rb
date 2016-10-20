@@ -51,6 +51,14 @@ ActiveSupport.on_load(:active_record) do
       self.where_clause = ActiveRecord::Relation::WhereClause.new(values || [], where_clause.binds)
     end
 
+    def having_values
+      having_clause.predicates
+    end
+
+    def having_values=(values)
+      self.having_clause = ActiveRecord::Relation::WhereClause.new(values || [], having_clause.binds)
+    end
+
     def bind_values
       where_clause.binds
     end
