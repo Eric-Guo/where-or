@@ -127,6 +127,15 @@ ActiveSupport.on_load(:active_record) do
       )
     end
 
+    # monkey patching around the fact that the rails 4.2 implementation is an array of things, all 'and'd together
+    # but the rails 5 implemention that they backported replaces that array with ActiveRecord::Relation::WhereClause that
+    # contains AND's and OR's ... on testing, I discover it mostly works except when you attempt to use the preloader,
+    # which this hack here fixes.
+    def -(other)
+      raise "where-or internal error: expect only empty array, not #{other.inspect}" unless other.empty? || (other.size == 1 && other.first.blank?)
+      [self]
+    end
+
     def merge(other)
       ActiveRecord::Relation::WhereClause.new(
         predicates_unreferenced_by(other) + other.predicates,
