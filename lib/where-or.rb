@@ -92,7 +92,9 @@ ActiveSupport.on_load(:active_record) do
       self
     end
 
-    private def structurally_compatible_for_or?(other) # :nodoc:
+    private
+
+    def structurally_compatible_for_or?(other) # :nodoc:
       (ActiveRecord::Relation::SINGLE_VALUE_METHODS - [:from]).all? { |m| send("#{m}_value") == other.send("#{m}_value") } &&
         (ActiveRecord::Relation::MULTI_VALUE_METHODS - [:references, :eager_load, :extending, :where, :having, :bind]).all? { |m| send("#{m}_values") == other.send("#{m}_values") }
       # https://github.com/rails/rails/commit/2c46d6db4feaf4284415f2fb6ceceb1bb535f278
@@ -100,8 +102,6 @@ ActiveSupport.on_load(:active_record) do
       # https://github.com/rails/rails/commit/bdc5141652770fd227455681cde1f9899f55b0b9
       # (ActiveRecord::Relation::CLAUSE_METHODS - [:having, :where]).all? { |m| send("#{m}_clause") != other.send("#{m}_clause") }
     end
-
-    private
 
     def new_where_clause
       ActiveRecord::Relation::WhereClause.empty
