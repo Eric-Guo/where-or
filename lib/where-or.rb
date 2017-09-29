@@ -1,6 +1,4 @@
 abort "Congrats for being on Rails 5. Now please remove this patch by getting rid of the `where-or` gem" if ActiveRecord::VERSION::MAJOR > 4
-# Tested on Rails Rails 4.2.3
-warn "Patching ActiveRecord::Relation#or.  This might blow up" if ActiveRecord.version.to_s < '4.2.3'
 # https://github.com/rails/rails/commit/9e42cf019f2417473e7dcbfcb885709fa2709f89.patch
 # CHANGELOG.md
 # *   Added the `#or` method on ActiveRecord::Relation, allowing use of the OR
